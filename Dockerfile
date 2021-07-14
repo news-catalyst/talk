@@ -1,7 +1,10 @@
 FROM node:12-alpine
 
 # Install build dependancies.
-RUN apk --no-cache add git python openssh make g++
+RUN apk --no-cache add git python openssh make g++ iproute2 bash curl
+
+ADD ./.profile.d /app/.profile.d
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # Create app directory.
 RUN mkdir -p /usr/src/app/.ssh
