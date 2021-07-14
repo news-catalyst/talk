@@ -38,13 +38,16 @@ export class I18n {
     // Load all the locales from the locales folders.
     for (const localesFolder of pathsToLocales) {
       const folders = await fs.readdir(localesFolder);
+      logger.debug("path: ", localesFolder, " has folders: ", folders);
 
       // Load all the translation files for each of the folders.
       for (const folder of folders) {
         // Parse out the language code.
         const locale = path.basename(folder);
         if (!isLanguageCode(locale)) {
-          throw new Error(`invalid language code: ${locale}`);
+          logger.debug("not a valid language code: ", locale);
+          continue;
+          // throw new Error(`invalid language code: ${locale}`);
         }
 
         // Now we have a language code.
